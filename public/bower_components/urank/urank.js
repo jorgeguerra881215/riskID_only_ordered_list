@@ -114,10 +114,13 @@ var Urank = (function(){
 
 var enterLog = function(value){
     var scriptURL = "http://localhost/loginapp/server/log.php",
-    //var scriptURL = "http://itic.uncu.edu.ar/hadoop/uRankNTLoginApp/server/log.php";
+        //var scriptURL = "http://itic.uncu.edu.ar/hadoop/uRankNTLoginApp/server/log.php";
         date = new Date(),
         timestamp = date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate() + '_' + date.getHours() + '.' + date.getMinutes() + '.' + date.getSeconds(),
-        urankState = urankState = $('#username').html()+',' + timestamp+','+value,
+        userName = $('#username').html(),
+        userToken = $('#usertoken').html(),
+        sessionId = $('#sessionid').html(),
+        urankState = sessionId + ',' + userName +',' + userToken + ',' + timestamp+','+value + ', reorder add-on',
         gf = [{ filename: 'urank_labeled_' + timestamp + '.txt', content: urankState }];//JSON.stringify(urankState)
 
     $.generateFile({ filename: "bookmarks.json", content: urankState, script: scriptURL });
@@ -397,8 +400,8 @@ var enterLog = function(value){
         connectionList.push(connection);
         connection_id.indexOf(connection.id) == -1 ? connection_id.push(connection.id):null;
         var aux = [];
-        //This section code is commented only for simple version
-        /*if(connection.title == 'Unlabelled'){ //Si seleccionamos una conexion sin etiquetar entonces ordeno por los mas similares
+        //This section code will be commented only for simple version
+        if(connection.title == 'Unlabelled'){ //Si seleccionamos una conexion sin etiquetar entonces ordeno por los mas similares
             var similar_data = _this.getSimilarConnectionsById(connection.id)
             var first_similar_botnet = true, first_similar_normal = true //Variable para quedarme con la conexion botnet/normal mas similar a la seleccionada
             similar_data.forEach(function(item){
@@ -422,9 +425,9 @@ var enterLog = function(value){
             data.forEach(function(item){
              item.id != connection.id && connection_id.indexOf(item.id) == -1 ? aux.push(item) : null;
              });
-        }*/
+        }
         //Only for simple version
-        var first_similar_botnet = true, first_similar_normal = true //Variable para quedarme con la conexion botnet/normal mas similar a la seleccionada
+        /*var first_similar_botnet = true, first_similar_normal = true //Variable para quedarme con la conexion botnet/normal mas similar a la seleccionada
         data.forEach(function(item){
             item.id != connection.id && connection_id.indexOf(item.id) == -1 ? aux.push(item) : null;
             if(item.title == 'Botnet' && first_similar_botnet){
@@ -440,7 +443,7 @@ var enterLog = function(value){
             if(!first_similar_botnet  && !first_similar_normal){
                 return false
             }
-        });
+        });*/
         return connectionList.concat(aux);
     }
 
@@ -1078,12 +1081,12 @@ var enterLog = function(value){
         onEnterLog: function(value){
             //var scriptURL = "http://localhost/riskID/server/log.php",
             var scriptURL = "http://itic.uncu.edu.ar/hadoop/riskID/app/server/log.php";
-                date = new Date(),
+            date = new Date(),
                 timestamp = date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate() + '_' + date.getHours() + '.' + date.getMinutes() + '.' + date.getSeconds(),
                 userName = $('#username').html(),
                 userToken = $('#usertoken').html(),
                 sessionId = $('#sessionid').html(),
-                urankState = sessionId + ',' + userName +',' + userToken + ',' + timestamp+','+value,
+                urankState = sessionId + ',' + userName +',' + userToken + ',' + timestamp+','+value + ', reorder add-on',
                 gf = [{ filename: 'urank_labeled_' + timestamp + '.txt', content: urankState }];//JSON.stringify(urankState)
 
             $.generateFile({ filename: "bookmarks.json", content: urankState, script: scriptURL });

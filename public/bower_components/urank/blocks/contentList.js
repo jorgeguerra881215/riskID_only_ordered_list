@@ -239,7 +239,13 @@ var ContentList = (function(){
         });
     };
 
-
+    var animateOrderedList = function(){
+        var ul = $('ul#connection-list');
+        var duration = 1500;
+        var easing = 'swing';
+        ul.animate({opacity: "0.1"}, duration, easing);
+        ul.animate({opacity: "1"}, duration, easing);
+    }
 
     var animateResortEffect = function() {
         var duration = 1500;
@@ -1085,6 +1091,7 @@ var ContentList = (function(){
         scrollTo: _scrollTo,
         getListHeight: _getListHeight,
         orderedList: _orderedList,
+        orderVisualEfect: animateOrderedList,
         selectOneListItem: _selectOneListItem,
         createHeatmapRepresentation: createHeatmapRepresentation
     };
